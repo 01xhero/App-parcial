@@ -1,18 +1,19 @@
+import * as CryptoJS from 'crypto-js';
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js'; // Import correcto en Angular/Ionic
 
 @Injectable({
   providedIn: 'root'
 })
 export class Incriptador {
 
-  constructor() {}
-
+  // Encriptar contraseña
   hash(password: string): string {
     return CryptoJS.SHA256(password).toString();
   }
 
+  // Comparar contraseña ingresada con la almacenada
   compare(password: string, hash: string): boolean {
-    return this.hash(password) === hash;
+    const hashed = this.hash(password);
+    return hashed === hash;
   }
 }

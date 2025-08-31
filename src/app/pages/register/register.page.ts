@@ -13,7 +13,7 @@ import { Api } from 'src/app/shared/provide/api';
 export class RegisterPage implements OnInit {
 
   registerForm!: FormGroup;
-  countries: { value: string, label: string }[] = []; // ✅ Agregado
+  countries: { value: string, label: string }[] = [];
 
   constructor(
     private userService: UserService,
@@ -44,10 +44,10 @@ export class RegisterPage implements OnInit {
               label: `${c.flag} ${c.name}`
             }));
           },
-          error: (err) => console.error(err)
+          error: (err) => console.error('Error cargando países:', err)
         });
     } catch (error) {
-      console.error('Error cargando países', error);
+      console.error('Error en la petición de países:', error);
     }
   }
 
@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
 
     const { password, confirmPassword } = this.registerForm.value;
     if (password !== confirmPassword) {
-      console.log('Las contraseñas no coinciden');
+      console.error('Las contraseñas no coinciden');
       return;
     }
 
@@ -65,7 +65,7 @@ export class RegisterPage implements OnInit {
       name: this.registerForm.value.name,
       lastName: this.registerForm.value.lastName,
       email: this.registerForm.value.email,
-      password: this.registerForm.value.password, // si tienes encriptador, usarlo aquí
+      password, // En texto plano, se encripta dentro de UserService
       country: this.registerForm.value.country
     };
 

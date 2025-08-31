@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router'; // ✅ Importar Router
-import { Iuser, UserService } from 'src/app/shared/service/user-service';
-import { Api } from 'src/app/shared/provide/api';
-
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/shared/service/user-service';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +12,11 @@ import { Api } from 'src/app/shared/provide/api';
 export class LoginPage implements OnInit {
 
   loginForm!: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private userService: UserService,
-    private http: Api,
-    private router: Router // ✅ Inyectar Router
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,19 +29,17 @@ export class LoginPage implements OnInit {
   onSubmit() {
     if (this.loginForm.invalid) return;
 
-    const user: Iuser = {
-      id: '1233455',
-      name: 'no se',
-      lastName: 'no se',
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-      country: 'col'
-    };
+    const { email, password } = this.loginForm.value;
 
-    this.userService.crearUsuario(user);
+    if (this.userService.login(email, password)) {
+      this.errorMessage = '';
+      this.router.navigate(['/home']);
+    } else {
+      this.errorMessage = 'Correo o contraseña incorrectos';
+    }
   }
 
   goToRegister() {
-    this.router.navigate(['/register']); // ✅ Ahora funciona
+    this.router.navigate(['/register']);
   }
 }
