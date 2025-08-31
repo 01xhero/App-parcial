@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/service/user-service';
 
@@ -7,17 +7,14 @@ import { UserService } from 'src/app/shared/service/user-service';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class LoginPage implements OnInit {
 
   loginForm!: FormGroup;
   errorMessage: string = '';
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({

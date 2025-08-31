@@ -7,14 +7,12 @@ import { UserService } from '../service/user-service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   canActivate(): boolean {
     const loggedIn = this.userService.isLoggedIn();
     console.log('AuthGuard - usuario logueado:', loggedIn);
+
     if (!loggedIn) {
       this.router.navigate(['/login']);
       return false;

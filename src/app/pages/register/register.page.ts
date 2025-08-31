@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Iuser, UserService } from 'src/app/shared/service/user-service';
+import { UserService, Iuser } from 'src/app/shared/service/user-service';
 import { Api } from 'src/app/shared/provide/api';
+import { Incriptador } from 'src/app/shared/provide/incriptador';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class RegisterPage implements OnInit {
 
@@ -18,7 +19,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private userService: UserService,
     private api: Api,
-    private router: Router
+    private router: Router,
+    private incriptador: Incriptador
   ) {}
 
   ngOnInit() {
@@ -65,11 +67,16 @@ export class RegisterPage implements OnInit {
       name: this.registerForm.value.name,
       lastName: this.registerForm.value.lastName,
       email: this.registerForm.value.email,
-      password, // En texto plano, se encripta dentro de UserService
+      password: password, // se encripta en el servicio
       country: this.registerForm.value.country
     };
 
-    this.userService.crearUsuario(user);
+    const success = this.userService.crearUsuario(user);
+    if (!success) {
+      console.error('El email ya está registrado');
+      return;
+    }
+
     this.router.navigate(['/login']);
   }
 
