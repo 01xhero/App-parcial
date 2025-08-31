@@ -7,34 +7,44 @@ import { Incriptador } from '../provide/incriptador';
 })
 export class UserService {
 
-  private storageKey = 'user'; // clave para localStorage
+  private storageKey = 'user';      // donde se guarda el usuario
+  private sessionKey = 'isLogged';  // controla si hay sesión activa
 
   constructor(
     private storageProvider: StorageProvider,
     private incriptador: Incriptador
-  ) {}
+  ) {
+    // Opcional: limpiar sesión al iniciar la app
+    // this.storageProvider.remove(this.sessionKey);
+  }
 
   crearUsuario(user: Iuser) {
-    // Encriptar solo aquí
     const userToSave = { ...user, password: this.incriptador.hash(user.password) };
     this.storageProvider.set(this.storageKey, userToSave);
     console.log('Usuario guardado:', userToSave);
   }
 
   obtenerUsuario(): Iuser | null {
-    const userData = this.storageProvider.get<Iuser>(this.storageKey);
-    if (!userData) {
-      console.log('No hay usuario registrado.');
-      return null;
-    }
-    return userData;
+    return this.storageProvider.get<Iuser>(this.storageKey);
   }
 
   login(email: string, password: string): boolean {
     const user = this.obtenerUsuario();
     if (!user) return false;
 
-    return user.email === email && this.incriptador.compare(password, user.password);
+    const isValid = user.email === email && this.incriptador.compare(password, user.password);
+    if (isValid) {
+      this.storageProvider.set(this.sessionKey, true); // activa sesión
+    }
+    return isValid;
+  }
+
+  logout() {
+    this.storageProvider.remove(this.sessionKey);
+  }
+
+  isLoggedIn(): boolean {
+    return this.storageProvider.get<boolean>(this.sessionKey) === true;
   }
 
   generateId(): string {
