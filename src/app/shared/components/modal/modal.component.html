@@ -7,7 +7,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <p>{{ content }}</p>
-  <ion-button (click)="openInBrowser()">Abrir en navegador</ion-button>
+
+  <!-- Select dentro del modal -->
+  <ion-item *ngIf="options?.length">
+    <ion-label>Seleccionar</ion-label>
+    <ion-select [multiple]="multiple" [value]="selectedValues" (ionChange)="onChange($event)">
+      <ion-select-option *ngFor="let opt of options" [value]="opt.value">{{ opt.label }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <app-button (click)="openInBrowser()">Abrir en navegador</app-button>
 </ion-content>

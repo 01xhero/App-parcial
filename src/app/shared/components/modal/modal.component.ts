@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 
 @Component({
@@ -14,6 +13,11 @@ export class ModalComponent {
   @Input() content: string = '';
   @Input() url: string = '';
 
+  // Nuevas propiedades para select
+  @Input() multiple: boolean = false;
+  @Input() selectedValues: string[] = [];
+  @Input() options: { value: string; label: string }[] = [];
+
   constructor(private modalCtrl: ModalController) {}
 
   closeModal() {
@@ -21,8 +25,10 @@ export class ModalComponent {
   }
 
   async openInBrowser() {
-    if (this.url) {
-      await Browser.open({ url: this.url });
-    }
+    if (this.url) await Browser.open({ url: this.url });
+  }
+
+  onChange(event: any) {
+    this.selectedValues = event.detail.value;
   }
 }

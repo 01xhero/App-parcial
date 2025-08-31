@@ -3,16 +3,15 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-link',
-  templateUrl: './link.component.html',
-  styleUrls: ['./link.component.scss'],
   standalone: false,
+  template: `<a (click)="navigate()"><ng-content></ng-content></a>`
 })
 export class LinkComponent {
-  @Input() href: string = '';
+  @Input() href: string = '/';
 
   constructor(private router: Router) {}
 
   navigate() {
-    if (this.href) this.router.navigate([this.href]);
+    this.router.navigate([this.href]);
   }
 }

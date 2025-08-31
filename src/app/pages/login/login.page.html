@@ -1,0 +1,44 @@
+<app-header title="Iniciar sesión"></app-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <!-- Email -->
+    <app-input label="Email" formControlName="email"></app-input>
+    <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid" class="error">
+      <small *ngIf="loginForm.controls['email'].errors?.['required']">El email es obligatorio</small>
+      <small *ngIf="loginForm.controls['email'].errors?.['email']">Formato de email incorrecto</small>
+    </div>
+
+    <!-- Contraseña -->
+    <app-input label="Contraseña" type="password" formControlName="password"></app-input>
+    <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid" class="error">
+      <small>La contraseña es obligatoria</small>
+    </div>
+
+    <!-- Botón de login -->
+    <app-button type="submit" [disabled]="loginForm.invalid">
+      Iniciar sesión
+    </app-button>
+  </form>
+
+  <!-- Link a registro -->
+  <p class="register-link">
+    <a (click)="goToRegister()">¿No tienes cuenta? Regístrate</a>
+  </p>
+
+</ion-content>
+
+<style>
+  .error small {
+    color: red;
+    font-size: 0.8rem;
+  }
+  .register-link {
+    margin-top: 15px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--ion-color-primary);
+  }
+</style>

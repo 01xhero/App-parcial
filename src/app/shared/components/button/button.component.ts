@@ -1,17 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss'],
   standalone: false,
+  template: `
+    <ion-button [type]="type" [disabled]="disabled"><ng-content></ng-content></ion-button>
+  `
 })
 export class ButtonComponent {
   @Input() type: 'button' | 'submit' = 'button';
   @Input() disabled: boolean = false;
-  @Output() clickEvent = new EventEmitter<void>();
-
-  onClick() {
-    if (!this.disabled) this.clickEvent.emit();
-  }
 }

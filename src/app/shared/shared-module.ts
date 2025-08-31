@@ -1,22 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from './components/input/input.component';
 import { IonicModule } from '@ionic/angular';
-import { ButtonComponent } from './components/button/button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StorageProvider } from './provide/storage-provider';
 
-
+// Componentes
+import { HeaderComponent } from './components/header/header.component';
+import { InputComponent } from './components/input/input.component';
+import { ButtonComponent } from './components/button/button.component';
+import { LinkComponent } from './components/link/link.component';
+import { SelectComponent } from './components/select/select.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
-  declarations: [InputComponent, ButtonComponent],
-  providers: [StorageProvider],
+  declarations: [
+    HeaderComponent,
+    InputComponent,
+    ButtonComponent,
+    LinkComponent,
+    SelectComponent,
+    CardComponent
+  ],
   imports: [
     CommonModule,
-    IonicModule,
-    FormsModule,// para formularios
-    ReactiveFormsModule// para formularios
+    FormsModule,
+    ReactiveFormsModule,
+    IonicModule
   ],
-  exports:[InputComponent, ButtonComponent],
+  exports: [
+    HeaderComponent,
+    InputComponent,
+    ButtonComponent,
+    LinkComponent,
+    SelectComponent,
+    CardComponent
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}

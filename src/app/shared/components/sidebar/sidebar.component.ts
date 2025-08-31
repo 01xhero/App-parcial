@@ -12,4 +12,8 @@ export class SideBarComponent {
     { title: 'Perfil', link: '/profile' },
     { title: 'Cerrar sesión', link: '/login' }
   ];
+
+  goTo(link: string) {
+    if (link) window.location.href = link;
+  }
 }

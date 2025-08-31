@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let item of menuItems" (click)="item.link && (window.location.href=item.link)">
+      <ion-item *ngFor="let item of menuItems" (click)="goTo(item.link)">
         {{ item.title }}
       </ion-item>
     </ion-list>

@@ -8,4 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class ListComponent {
   @Input() items: { title: string; link?: string }[] = [];
+
+  goToLink(link?: string) {
+    if (link) window.location.href = link;
+  }
+
 }
