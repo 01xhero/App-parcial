@@ -1,0 +1,8 @@
+<ion-item>
+  <ion-label>Seleccionar</ion-label>
+  <ion-select [(ngModel)]="selectedValues" [multiple]="multiple">
+    <ion-select-option *ngFor="let opt of options" [value]="opt.value">
+      {{ opt.label }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>

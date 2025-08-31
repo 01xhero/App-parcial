@@ -1,0 +1,8 @@
+<app-input label="Nombre" [(value)]="userData.name"></app-input>
+<app-input label="Apellido" [(value)]="userData.lastName"></app-input>
+<app-input label="Email" type="email" [(value)]="userData.email"></app-input>
+<app-input label="Contraseña" type="password" [(value)]="userData.password"></app-input>
+
+<app-select [options]="[{value:'Colombia',label:'🇨🇴 Colombia'}]"></app-select>
+
+<app-button (click)="submit()">Guardar</app-button>
