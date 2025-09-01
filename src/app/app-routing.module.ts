@@ -14,6 +14,11 @@ const routes: Routes = [
 
   },
   {
+    path: 'profiles',  // ✅ Agregar ruta de registro
+    loadChildren: () => import('./pages/profiles/profiles.module').then(m => m.ProfilesPageModule)
+
+  },
+  {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
     canActivate: [AuthGuard]

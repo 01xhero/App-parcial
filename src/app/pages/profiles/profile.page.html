@@ -1,0 +1,9 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <app-input label="Nombre" formControlName="name"></app-input>
+  <app-input label="Apellido" formControlName="lastName"></app-input>
+  <app-select [options]="countries" formControlName="country"></app-select>
+  <app-input label="Correo" type="email" formControlName="email" [disabled]="true"></app-input>
+  <app-input label="Contraseña" type="password" formControlName="password" placeholder="Nueva contraseña (opcional)"></app-input>
+  <app-input label="Confirmar Contraseña" type="password" formControlName="confirmPassword" placeholder="Confirmar nueva contraseña"></app-input>
+  <app-button type="submit" [disabled]="profileForm.invalid">Actualizar</app-button>
+</form>
