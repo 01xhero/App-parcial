@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, Iuser } from 'src/app/shared/service/user-service';
+import { NewsService, INews } from 'src/app/shared/service/new-service';
 
 @Component({
   selector: 'app-home',
@@ -9,19 +9,25 @@ import { UserService, Iuser } from 'src/app/shared/service/user-service';
   standalone: false,
 })
 export class HomePage implements OnInit {
-
-  currentUser: Iuser | null = null;
+  news: INews[] = [];
 
   constructor(
-    private router: Router,
-    private userService: UserService
+    private newsService: NewsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.currentUser = this.userService.getCurrentUser();
+    this.newsService.getNews().subscribe({
+      next: (res) => {
+        this.news = res.articles; // 🔹 asignamos los artículos
+      },
+      error: (err) => {
+        console.error('Error cargando noticias:', err);
+      },
+    });
   }
 
   goToProfile() {
-    this.router.navigate(['/profile']); // Asumiendo que la ruta de perfil es /profile
+    this.router.navigate(['/profiles']); // 🔹 ruta de tu página de perfil
   }
 }

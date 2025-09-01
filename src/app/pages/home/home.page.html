@@ -1,11 +1,8 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <!-- Título de la página -->
-    <ion-title>
-      Noticias
-    </ion-title>
+  <ion-toolbar>
 
-    <!-- Icono de perfil a la derecha -->
+    <ion-title>Noticias</ion-title>
+
     <ion-buttons slot="end">
       <ion-button (click)="goToProfile()">
         <ion-icon name="person-circle-outline"></ion-icon>
@@ -14,7 +11,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>Bienvenido a la sección de noticias</h2>
-  <p>Aquí se mostrarán las noticias relevantes.</p>
+<ion-content>
+  <ion-card *ngFor="let item of news">
+    <img *ngIf="item.urlToImage" [src]="item.urlToImage" alt="Imagen noticia" />
+    <ion-card-header>
+      <ion-card-title>{{ item.title }}</ion-card-title>
+      <ion-card-subtitle>{{ item.source.name }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ item.description }}</p>
+      <ion-button fill="clear" size="small" [href]="item.url" target="_blank">
+        Ver más
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
