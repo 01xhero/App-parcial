@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar>
-
     <ion-title>Noticias</ion-title>
-
     <ion-buttons slot="end">
       <ion-button (click)="goToProfile()">
         <ion-icon name="person-circle-outline"></ion-icon>
@@ -13,16 +11,18 @@
 
 <ion-content>
   <ion-card *ngFor="let item of news">
-    <img *ngIf="item.urlToImage" [src]="item.urlToImage" alt="Imagen noticia" />
+    <img *ngIf="item.urlToImage" [src]="item.urlToImage" />
     <ion-card-header>
       <ion-card-title>{{ item.title }}</ion-card-title>
-      <ion-card-subtitle>{{ item.source.name }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p>{{ item.description }}</p>
-      <ion-button fill="clear" size="small" [href]="item.url" target="_blank">
-        Ver más
-      </ion-button>
+      {{ item.description }}
     </ion-card-content>
   </ion-card>
+
+  <!-- 🔹 Infinite Scroll -->
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNews($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

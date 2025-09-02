@@ -10,6 +10,9 @@ import { NewsService, INews } from 'src/app/shared/service/new-service';
 })
 export class HomePage implements OnInit {
   news: INews[] = [];
+  page = 1; // 🔹 página actual
+  pageSize = 5; // 🔹 cuántas noticias por tanda
+  totalResults = 0;
 
   constructor(
     private newsService: NewsService,
@@ -17,17 +20,31 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.newsService.getNews().subscribe({
+    this.loadNews();
+  }
+
+  loadNews(event?: any) {
+    this.newsService.getNews(this.page, this.pageSize).subscribe({
       next: (res) => {
-        this.news = res.articles; // 🔹 asignamos los artículos
+        this.totalResults = res.totalResults;
+        this.news = [...this.news, ...res.articles]; // 🔹 append
+        this.page++;
+
+        if (event) event.target.complete();
+
+        // 🔹 desactiva scroll cuando no haya más
+        if (this.news.length >= this.totalResults && event) {
+          event.target.disabled = true;
+        }
       },
       error: (err) => {
         console.error('Error cargando noticias:', err);
+        if (event) event.target.complete();
       },
     });
   }
 
   goToProfile() {
-    this.router.navigate(['/profiles']); // 🔹 ruta de tu página de perfil
+    this.router.navigate(['/profiles']);
   }
 }
