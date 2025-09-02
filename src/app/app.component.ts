@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,12 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  constructor() {}
+  categorySelected$ = new Subject<string>();
+
+  constructor(private menuCtrl: MenuController) {}
+
+  selectCategory(category: string) {
+    this.categorySelected$.next(category);
+    this.menuCtrl.close(); // 🔹 cerramos el menú al seleccionar
+  }
 }

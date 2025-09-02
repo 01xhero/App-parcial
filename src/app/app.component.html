@@ -1,3 +1,27 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- 🔹 Menú lateral -->
+  <ion-menu contentId="main-content" side="start">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Categorías</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-item button (click)="selectCategory('general')">General</ion-item>
+        <ion-item button (click)="selectCategory('business')">Negocios</ion-item>
+        <ion-item button (click)="selectCategory('entertainment')">Entretenimiento</ion-item>
+        <ion-item button (click)="selectCategory('health')">Salud</ion-item>
+        <ion-item button (click)="selectCategory('science')">Ciencia</ion-item>
+        <ion-item button (click)="selectCategory('sports')">Deportes</ion-item>
+        <ion-item button (click)="selectCategory('technology')">Tecnología</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- 🔹 Contenido principal -->
+  <div class="ion-page" id="main-content">
+    <ion-router-outlet></ion-router-outlet>
+  </div>
 </ion-app>

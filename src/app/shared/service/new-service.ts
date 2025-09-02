@@ -21,9 +21,9 @@ export class NewsService {
   constructor(private http: HttpClient) {}
 
   // 🔹 Ahora acepta paginación
-  getNews(page: number = 1, pageSize: number = 10): Observable<any> {
+  getNews(page: number = 1, category: string = 'general'): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}&page=${page}&pageSize=${pageSize}&apiKey=${this.apiKey}`
+      `${this.apiUrl}&category=${category}&page=${page}&pageSize=10&apiKey=${this.apiKey}`
     );
-  }
+}
 }
